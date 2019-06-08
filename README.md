@@ -35,5 +35,5 @@ For UI side using create-react-app<https://reactjs.org/docs/create-a-new-react-a
 * npm start
 * Go to localhost:3000
 
-
+![Alt text](/Users/lsoghomonyan/Downloads/Screen Shot 2019-06-08 at 6.04.36 PM.png?raw=true "First and Returning Welcomes")
 
