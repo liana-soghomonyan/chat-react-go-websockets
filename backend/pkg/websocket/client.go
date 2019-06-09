@@ -13,36 +13,38 @@ type Client struct {
 }
 
 type Message struct {
-    Type string `json:"type"`
+    Type int `json:"type"`
     Body string `json:"body"`
 }
 
 type MessageBody struct {
     Email string `json:"email"`
-    Content string `json:"content"`
+    Body string `json:"body"`
 }
-func broadcastMessage(c * Client, msgBody MessageBody) Message{
-  clientMessage := Message{Type: "CLIENT", Body: string(msgBody.Content)}
+
+func broadcastMessage(c * Client, msgBody MessageBody) {
+  clientMessage := Message{Type: 0, Body: string(msgBody.Body)}
   c.Pool.Messages[msgBody.Email] = append(c.Pool.Messages[msgBody.Email], &clientMessage)
   c.Pool.Broadcast <- clientMessage
-  return clientMessage;
+  fmt.Printf("Message Broadcasted: %+v\n", clientMessage)
 }
 
-func broadcastWelcomeBackReturningUser(c * Client, msgBody MessageBody) Message{
-  clientMessage := Message{Type: "SERVER", Body: string(fmt.Sprintf("Welcome back, %s!", msgBody.Email))}
-  c.Pool.Broadcast <- clientMessage
+func broadcastWelcomeBackReturningUser(c * Client, msgBody MessageBody) {
   for m := 0; m < len(c.Pool.Messages[msgBody.Email]); m++ {
-    fmt.Printf("Message in array: %+v\n", *c.Pool.Messages[msgBody.Email][m])
+    fmt.Printf("Message Broadcasted: %+v\n", *c.Pool.Messages[msgBody.Email][m])
     c.Pool.Broadcast <- *c.Pool.Messages[msgBody.Email][m]
   }
-  return clientMessage;
 }
 
-func broadcastWelcomeNewUser(c * Client, msgBody MessageBody) Message{
-  clientMessage := Message{Type: "SERVER", Body: string(fmt.Sprintf("Welcome to the chat, %s!", msgBody.Email))}
-  c.Pool.Broadcast <- clientMessage
-  return clientMessage;
-}
+func broadcastWelcomeUser(c * Client, msgBody MessageBody) {
+  broadcastWelcomeBackReturningUser(c, msgBody);
+  messages := [2]Message {Message{Type: 1, Body: string(fmt.Sprintf("%s joined the chat", msgBody.Email))},
+      Message{Type: 1, Body: string(fmt.Sprintf("Welcome to Mount Sinai! I’m your helper bot. Please send any questions you may have."))}}
+    for _, message := range messages {
+        c.Pool.Broadcast <- message
+        fmt.Printf("Message Broadcasted: %+v\n", message)
+    }
+  }
 
 func (c *Client) Read() {
     defer func() {
@@ -57,7 +59,7 @@ func (c *Client) Read() {
             log.Println(err)
             return
         }
-        fmt.Printf("Message: %+v\n", string(p))
+        fmt.Printf("Message Received: %+v\n", string(p))
 
         var msgBody MessageBody
         errJson := json.Unmarshal(p, &msgBody)
@@ -66,14 +68,10 @@ func (c *Client) Read() {
           return
         }
 
-        var clientMessage Message
-        if len(msgBody.Content) > 0 && len(msgBody.Email) > 0 {
-          clientMessage = broadcastMessage(c, msgBody)
-        } else if len(msgBody.Content) == 0 && len(c.Pool.Messages[msgBody.Email]) > 0 {
-          clientMessage = broadcastWelcomeBackReturningUser(c, msgBody)
-        } else if len(msgBody.Email) > 0 {
-          clientMessage = broadcastWelcomeNewUser(c, msgBody)
-        }    
-        fmt.Printf("Message Received: %+v\n", clientMessage)
+        if len(msgBody.Body) > 0 && len(msgBody.Email) > 0 {
+          broadcastMessage(c, msgBody)
+        } else{
+          broadcastWelcomeUser(c, msgBody)
+        }
     }
 }

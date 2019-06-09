@@ -1,6 +1,6 @@
 # Chat application with Go and React
 
-The chat prototype uses Golang and Websockets for backend server and React for its frontend. When user connects to the chat client via React UI the Welcome screen asks for an email for joining the chat room. Upon successful email validation a Websocket connection is initiated with the Golang server and the chat interface is then maintained by the server and socket communication. No database layer is used for this excersice and application state is restarted when the server or client are restarted. The server keeps track of the messages per client identified by the email addredd entered. So if the same email address is used to join a chat the chat history is shown after successful join. 
+The chat prototype uses Golang and Websockets for backend server and React for its frontend. When user connects to the chat client via React UI the Welcome screen asks for an email for joining the chat room. Upon successful email validation a Websockets connection is initiated with the Golang server and the chat interface is then maintained by the server and socket communication. No database layer is used for this exersice and application state is restarted when the server or client are restarted. The server keeps track of the messages per client identified by the email address entered. So if the same email address is used to join a chat the chat history is shown after successful join. 
 For UI side using create-react-app<https://reactjs.org/docs/create-a-new-react-app.html> bootstrapper is used.
 
 ### Usage
@@ -35,6 +35,7 @@ For UI side using create-react-app<https://reactjs.org/docs/create-a-new-react-a
 * npm start
 * Go to localhost:3000
 
-![ScreenShot](https://raw.github.com/liana-soghomonyan/chat-react-go-websockets/master/ScreenShot.png)
+![ScreenShot](https://raw.github.com/liana-soghomonyan/chat-react-go-websockets/master/ScreenShot2.png)
+![ScreenShot](https://raw.github.com/liana-soghomonyan/chat-react-go-websockets/master/ScreenShot1.png)
 
 

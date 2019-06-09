@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+
+  .AppTitle{
+    justify-content: center
+  }
+  .AppBarElementContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+  }
+
+  .AppBarElement{
+    margin-right: 20px ;
+    color: white;
+    padding: 10px;
+  }
+}
+
+.ErrorTypography{
+  margin-top: 1%;
+  color: red;
+}
+

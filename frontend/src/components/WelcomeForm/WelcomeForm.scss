@@ -1,0 +1,22 @@
+.PaperWrapper {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Typography{
+  margin-top: 5%;
+}
+
+.FormWrapper {
+  width: 100%;
+  margin-top: 5%;
+
+  .JoinButton {
+    background: linear-gradient(45deg, #00BCD4 30%, #01BCF8 90%);
+    margin-top: 5%;
+  }
+}
+
+
