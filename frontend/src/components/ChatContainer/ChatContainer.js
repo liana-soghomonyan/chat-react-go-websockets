@@ -16,7 +16,6 @@ export default class ChatContainer extends React.Component {
         message: '',
     }
 
-
     getConversations() {
         if (!this.props.chatHistory.length) {
             return;
