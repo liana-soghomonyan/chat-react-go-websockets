@@ -25,7 +25,7 @@ For UI side using create-react-app<https://reactjs.org/docs/create-a-new-react-a
 * cd GOPATH/src/chat-react-go-websockets/backend
 * go get github.com/gorilla/websocket
 * $ cd backend
-* $ go run main.go from the chat-react-go-websockets/backend
+* $ go run main.go from the chat-react-go-websockets/backend (Note: make sure PORT 8080 is available)
 * The output in terminal should be "Simple Chat App with Websockets"
 
 
