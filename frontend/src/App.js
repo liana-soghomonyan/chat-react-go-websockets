@@ -35,7 +35,8 @@ export class App extends Component {
 
     sendMessage = (message) => {
         console.log('Sending message to server:', message);
-        sendMsg(this.createMessage(message, this.state.email));
+        if(message.trim())
+            sendMsg(this.createMessage(message, this.state.email));
     }
     joinChat = (email) => {
         sendMsg(this.createMessage('', email));
@@ -59,7 +60,8 @@ export class App extends Component {
                 <MuiThemeProvider>
                     <div>
                         <AppBar showMenuIconButton={false}
-                                title="Chat Room">
+                                title="Chat Room"
+                        >
                             {this.maybeRenderAppBarElements()}
                         </AppBar>
                         {this.maybeRenderWelcomeScreen()}

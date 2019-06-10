@@ -16,6 +16,19 @@ export default class ChatContainer extends React.Component {
         message: '',
     }
 
+    messagesEndRef = React.createRef();
+
+    scrollToBottom = () => {
+        this.messagesEndRef.current.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
 
     getConversations() {
         if (!this.props.chatHistory.length) {
@@ -48,6 +61,7 @@ export default class ChatContainer extends React.Component {
                         <Paper className="chatHistory">
                             <div className="chat-list">
                                 {this.getConversations()}
+                                <div ref={this.messagesEndRef} />
                             </div>
                         </Paper>
                         <div className="chatInput">
